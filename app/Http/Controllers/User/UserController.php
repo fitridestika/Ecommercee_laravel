@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\FlashSale;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-
+    public function index() {
         $products = Product::all();
+        $flashSales = FlashSale::where('status', true)->get();
 
-        return view('pages.user.index', compact('products'));
+        return view('pages.user.index', compact('products','flashSales'));
     }
     public function detail_product($id)
 {
@@ -23,7 +23,6 @@ class UserController extends Controller
 
     return view('pages.user.detail', compact('product'));
 }
-
 public function purchase($productId, $userId)
 {
     $product = Product::findOrFail($productId);

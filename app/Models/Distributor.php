@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Admin as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Authenticatable
+class Distributor extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'username', 'email', 'password'
+        'name_distributor', 'kota', 'provinsi', 'kontak', 'email'
     ];
 }

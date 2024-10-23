@@ -11,10 +11,9 @@ class ListController extends Controller
 {
     public function index()
     {
-        $admins = Admin ::all(); // Fetch all data from Admin table
-        $users = User::all();   // Fetch all data from User table
-        $skripsis = Skripsi::all();   // Fetch all data from User table
-
+        $admins = Admin::all(); // Mengambil semua data dari tabel Admin
+        $users = User::all();   // Mengambil semua data dari tabel User
+        $skripsis = Skripsi::all(); // Mengambil semua data dari tabel Skripsi
 
         return view('welcome', compact('admins', 'users', 'skripsis'));
     }

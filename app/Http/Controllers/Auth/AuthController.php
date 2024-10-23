@@ -7,10 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function Login(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email:dns',
@@ -34,52 +35,48 @@ class AuthController extends Controller
         }
     }
 
-    public function admin_logout()
+    public function adminLogout()
     {
         Auth::guard('admin')->logout();
         toast('Berhasil logout!', 'success');
         return redirect('/');
     }
 
-    public function user_logout()
+    public function userLogout()
     {
         Auth::logout();
         toast('Berhasil logout!', 'success');
         return redirect('/');
     }
-
-    public function register() {
+    public function register(){
         return view('register');
     }
-    
-    public function post_register(Request $request) {
+
+    public function post_register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email:dns',
             'password' => 'required|min:8|max:8',
         ]);
-    
+
         if ($validator->fails()) {
-            Alert::error('Gagal', 'Pastikan semua terisi dengan benar!');
+            Alert::error('Gagal!', 'Pastikan semua terisi dengan benar!');
             return redirect()->back();
         }
-    
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'point' => 10000,
         ]);
-    
+        
         if ($user) {
-            Alert::success('Berhasil', 'Akun baru berhasil dibuat, silahkan melakukan login!');
+            Alert::success('Berhasil!', 'Akun baru berhasil dibuat, silahkan melakukan login!');
             return redirect('/');
         } else {
-            Alert::error('Gagal', 'Akun gagal dibuat, silahkan coba lagi!');
+            Alert::error('Gagal!', 'Akun gagal dibuat, silahkan coba lagi!');
             return redirect()->back();
         }
     }
-    
 }
-
-
